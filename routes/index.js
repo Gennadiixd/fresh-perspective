@@ -14,7 +14,7 @@ router.get('/dashboard', (req, res) => {
   if (req.session.user && req.cookies.user_sid) {
     res.render('dashboard');
   } else {
-    res.redirect('/login');
+    res.redirect('/users/login');
   }
 });
 
