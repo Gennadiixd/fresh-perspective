@@ -47,10 +47,14 @@ app.use(session({
 // This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
 app.use(cookiesCleaner);
 
+app.use(function (req, res, next) {
+  res.locals.session = req.session;
+  next();
+});
 
 // Импорт маршрутов.
 const indexRouter = require("./routes/index");
-
+const usersRouter = require("./routes/users");
 
 // Подключаем mongoose.
 const mongoose = require("mongoose");
@@ -67,6 +71,7 @@ app.set('view engine', 'hbs');
 
 // Подключаем импортированные маршруты с определенным url префиксом.
 app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
 // Обработка ошибок.
 app.use((req, res, next) => {
