@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const projectSchema = new mongoose.Schema({
-    modStat : Boolean,
+    modStat : String,
     title : {type : String, required : true},
     description : {type : String, required : true},
     images : String,

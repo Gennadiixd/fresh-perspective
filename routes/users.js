@@ -20,22 +20,23 @@ router.get('/logout', async (req, res, next) => {
 });
 
 router.route('/signup')
-  .get(sessionChecker, (req, res) => {
+  .get((req, res) => {
     res.render('signup');
   })
-  .post(async (req, res) => {
+  .post(async (req, res) => {    
     try {
       const user = new User({
         name: req.body.username,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        role: req.body.role,
       })
       await user.save();
       req.session.user = user;
       res.redirect('/');
     }
     catch (error) {
-      res.redirect('/signup');
+      res.redirect('/users/signup');
     };
   });
 

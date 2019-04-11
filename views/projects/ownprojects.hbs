@@ -1,0 +1,33 @@
+<div class="container row">
+
+
+
+
+  {{#each projects}}
+
+  <div class="row">
+
+    <div class="col-sm-6 col-md-4">
+      <div class="thumbnail">
+        {{#if_eq this.modStat 'rejected'}}
+        <h2 style="color : red">Отклонено</h2>
+        {{/if_eq}}
+
+        {{#if_eq this.modStat 'accepted'}}
+        <h2 style="color : green">Одобрено</h2>
+        {{/if_eq}}
+
+        {{#if_eq this.modStat 'pending'}}
+        <h2 style="color : gray">На проверке</h2>
+        {{/if_eq}}
+        <img src='/images/{{this.images}}'>
+        <div class="caption">
+          <h3>{{this.title}}</h3>
+          <p>{{this.description}}</p>
+          <p>Автор: {{this.author}}</p>
+          <p><a href="../{{this._id}}" class="btn btn-primary" role="button">Перейти</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/each}}
