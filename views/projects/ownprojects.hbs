@@ -1,27 +1,30 @@
 <div class="container row">
-  {{#if_eq modStat 'rejected'}}
-  <h1>Rejected projects</h1>
-  {{/if_eq}}
 
-  {{#if_eq modStat 'accepted'}}
-  <h1>Accepted projects</h1>
-  {{/if_eq}}
-
-  {{#if_eq modStat 'pending'}}
-  <h1>Projects to be moderated</h1>
-  {{/if_eq}}
 
 
 
   {{#each projects}}
+
   <div class="row">
+
     <div class="col-sm-6 col-md-4">
       <div class="thumbnail">
-        <img class="w-25" src='/images/{{this.images}}'>
+        {{#if_eq this.modStat 'rejected'}}
+        <h2 style="color : red">Отклонено</h2>
+        {{/if_eq}}
+
+        {{#if_eq this.modStat 'accepted'}}
+        <h2 style="color : green">Одобрено</h2>
+        {{/if_eq}}
+
+        {{#if_eq this.modStat 'pending'}}
+        <h2 style="color : gray">На проверке</h2>
+        {{/if_eq}}
+        <img src='/images/{{this.images}}'>
         <div class="caption">
           <h3>{{this.title}}</h3>
           <p>{{this.description}}</p>
-          <p>Designed by {{this.author}}</p>
+          <p>Автор: {{this.author}}</p>
           <p><a href="../{{this._id}}" class="btn btn-primary" role="button">Перейти</a></p>
         </div>
       </div>

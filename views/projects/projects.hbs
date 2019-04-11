@@ -1,7 +1,7 @@
 <div class="container row">
-  <h1>Projects here</h1>
 
-  {{#if_eq session.user.role 'designer' }}
+  {{#if_eq session.user.role 'designer'}}
+  <h1>Добавить проект</h1>
   <form id="addPost" method="post" action="/projects" enctype="multipart/form-data">
     <label for="title">Название</label>
     <input id="title" type="text" name="title" class="form-control w-25" placeholder="Введите название">
@@ -14,16 +14,17 @@
 </div>
 {{/if_eq}}
 
-{{#if_eq session.user.role 'customer' }}
+{{#if_eq session.user.role 'customer'}}
+<h1>Актуальные проекты</h1>
 {{#each projects}}
 <div class="row">
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
-      <img class="w-25" src='/images/{{this.images}}'>
+      <img class="w-50" src='/images/{{this.images}}'>
       <div class="caption">
         <h3>{{this.title}}</h3>
         <p>{{this.description}}</p>
-        <p>Designed by {{this.author}}</p>
+        <p>Автор: {{this.author}}</p>
         <p><a href="projects/{{this._id}}" class="btn btn-primary" role="button">Перейти</a></p>
       </div>
     </div>

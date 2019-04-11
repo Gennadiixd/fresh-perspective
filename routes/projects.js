@@ -17,7 +17,7 @@ const upload = multer({ storage: storage })
 
 router.route('/')
   .get(sessionChecker, async (req, res) => {
-    const projects = await Project.find({ modStat: 'true' });
+    const projects = await Project.find({ modStat: 'accepted' });
     res.render('projects/projects', { projects });
   })
   .post(upload.single('file-to-upload'), async (req, res) => {
@@ -30,13 +30,13 @@ router.route('/')
       author: req.session.user.name,
     })
     await project.save();
-    res.redirect('/projects')
+    res.redirect(`/projects/${project._id}`)
   })
 
 router.route('/accept/:id')
   .put(async (req, res) => {
     const project = await Project.findById(req.params.id);
-    project.modStat = 'true';
+    project.modStat = 'accepted';
     await project.save();
     res.redirect('../../projects/moderate/pending');
   })
@@ -45,7 +45,7 @@ router.route('/accept/:id')
 router.route('/reject/:id')
   .put(async (req, res) => {
     const project = await Project.findById(req.params.id);
-    project.modStat = 'false';
+    project.modStat = 'rejected';
     await project.save();
     res.redirect('../../projects/moderate/pending');
   })
