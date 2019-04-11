@@ -17,13 +17,13 @@ const upload = multer({ storage: storage })
 
 router.route('/')
   .get(sessionChecker, async (req, res) => {
-    const projects = await Project.find();
+    const projects = await Project.find({ modStat: 'true' });
     res.render('projects/projects', { projects });
   })
   .post(upload.single('file-to-upload'), async (req, res) => {
     console.log(req.file)
     const project = new Project({
-      modStat: false,
+      modStat: 'pending',
       title: req.body.title,
       description: req.body.description,
       images: req.file.filename,
@@ -36,28 +36,37 @@ router.route('/')
 router.route('/accept/:id')
   .put(async (req, res) => {
     const project = await Project.findById(req.params.id);
-    project.modStat = true;
+    project.modStat = 'true';
     await project.save();
-    res.redirect('../../projects/moderate/false');
+    res.redirect('../../projects/moderate/pending');
   })
   .post()
 
 router.route('/reject/:id')
   .put(async (req, res) => {
     const project = await Project.findById(req.params.id);
-    project.modStat = false;
+    project.modStat = 'false';
     await project.save();
-    res.redirect('../../projects/moderate/false');
+    res.redirect('../../projects/moderate/pending');
   })
-  .post()
 
-router.route('/moderate/:bool')
+router.route('/moderate/pending')
   .get(async (req, res) => {
-    const projects = await Project.find({ modStat: req.params.bool });
-    console.log(projects);    
-    res.render('projects/ownprojects', { projects : projects, bool : req.params.bool });
+    const projects = await Project.find({ modStat: 'pending' });
+    res.render('projects/ownprojects', { projects: projects, modStat: 'pending' });
   })
-  .post()
+
+router.route('/moderate/accepted')
+  .get(async (req, res) => {
+    const projects = await Project.find({ modStat: 'true' });
+    res.render('projects/ownprojects', { projects: projects, modStat: 'accepted' });
+  })
+
+router.route('/moderate/rejected')
+  .get(async (req, res) => {
+    const projects = await Project.find({ modStat: 'false' });
+    res.render('projects/ownprojects', { projects: projects, modStat: 'rejected' });
+  })
 
 router.route('/:id')
   .get(async (req, res) => {
