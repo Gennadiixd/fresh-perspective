@@ -33,10 +33,35 @@ router.route('/')
     res.redirect('/projects')
   })
 
+router.route('/accept/:id')
+  .put(async (req, res) => {
+    const project = await Project.findById(req.params.id);
+    project.modStat = true;
+    await project.save();
+    res.redirect('../../projects/moderate/false');
+  })
+  .post()
+
+router.route('/reject/:id')
+  .put(async (req, res) => {
+    const project = await Project.findById(req.params.id);
+    project.modStat = false;
+    await project.save();
+    res.redirect('../../projects/moderate/false');
+  })
+  .post()
+
+router.route('/moderate/:bool')
+  .get(async (req, res) => {
+    const projects = await Project.find({ modStat: req.params.bool });
+    console.log(projects);    
+    res.render('projects/ownprojects', { projects : projects, bool : req.params.bool });
+  })
+  .post()
+
 router.route('/:id')
   .get(async (req, res) => {
     const project = await Project.findById(req.params.id);
-    console.log(project)
     res.render('projects/show', { project })
   })
   .delete(async (req, res) => {
@@ -46,13 +71,11 @@ router.route('/:id')
 
 router.route('/show/:name')
   .get(async (req, res) => {
-    console.log('-------------------------------------');
-    const projects = await Project.find({author : req.params.name});
-    console.log('-------------------------------------');
-    console.log(projects);
+    const projects = await Project.find({ author: req.params.name });
     res.render('projects/ownprojects', { projects });
   })
   .post()
+
 
 
 

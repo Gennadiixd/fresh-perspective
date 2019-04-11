@@ -30,7 +30,11 @@
         {{/if_eq}}
 
         {{#if_eq session.user.role 'moderator'}}
-          <li><a href="/projects">Projects</a></li>
+          <li><a href="/projects/moderate/false">Projects To Be Moderated</a></li>
+        {{/if_eq}}
+
+        {{#if_eq session.user.role 'moderator'}}
+          <li><a href="/projects/moderate/true">Projects Moderated</a></li>
         {{/if_eq}}
       </ul>
 
