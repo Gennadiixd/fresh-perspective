@@ -55,6 +55,7 @@ app.use(function (req, res, next) {
 // Импорт маршрутов.
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const projectsRouter = require("./routes/projects");
 
 // Подключаем mongoose.
 const mongoose = require("mongoose");
@@ -72,6 +73,7 @@ app.set('view engine', 'hbs');
 // Подключаем импортированные маршруты с определенным url префиксом.
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/projects', projectsRouter);
 
 // Обработка ошибок.
 app.use((req, res, next) => {
