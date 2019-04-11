@@ -17,9 +17,21 @@
       <ul class="nav navbar-nav">
         <li><a href="/">Home</a></li>
         {{#unless session.user}}
-        <li><a href="/users/signup">Register</a></li>
+        <li><a href="/users/signup">Signup</a></li>
         {{/unless}}
-        <li><a href="/projects">Projects</a></li>
+
+        {{#if_eq session.user.role 'designer'}}
+          <li><a href="/projects">Add Projects</a></li>          
+          <li><a href="/projects/show/{{session.user.name}}">My Projects</a></li>
+        {{/if_eq}}
+
+        {{#if_eq session.user.role 'customer'}}
+          <li><a href="/projects">Projects</a></li>
+        {{/if_eq}}
+
+        {{#if_eq session.user.role 'moderator'}}
+          <li><a href="/projects">Projects</a></li>
+        {{/if_eq}}
       </ul>
 
       <ul class="nav navbar-nav navbar-right">

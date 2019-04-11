@@ -1,5 +1,7 @@
 <div class="container row">
   <h1>Projects here</h1>
+
+  {{#if_eq session.user.role 'designer' }}
   <form id="addPost" method="post" action="/projects" enctype="multipart/form-data">
     <label for="title">Название</label>
     <input id="title" type="text" name="title" class="form-control w-25" placeholder="Введите название">
@@ -10,7 +12,9 @@
     <button type="submit" class="btn btn-default">Отправить</button>
   </form>
 </div>
+{{/if_eq}}
 
+{{#if_eq session.user.role 'customer' }}
 {{#each projects}}
 <div class="row">
   <div class="col-sm-6 col-md-4">
@@ -25,3 +29,4 @@
   </div>
 </div>
 {{/each}}
+{{/if_eq}}
