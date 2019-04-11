@@ -7,10 +7,11 @@ const morgan = require("morgan");
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const path = require('path');
-const redis   = require("redis");
+const redis = require("redis");
 const RedisStore = require('connect-redis')(session);
-const client  = redis.createClient();
-const {cookiesCleaner} = require('./middleware/auth');
+const client = redis.createClient();
+const { cookiesCleaner } = require('./middleware/auth');
+const bodyParser = require('body-parser');
 
 
 app.use(morgan("dev"));
@@ -27,10 +28,10 @@ app.use(cookieParser());
 
 // initialize express-session to allow us track the logged-in user across sessions.
 app.use(session({
-  store: new RedisStore({ 
+  store: new RedisStore({
     client,
-    host: 'localhost', 
-    port: 6379, 
+    host: 'localhost',
+    port: 6379,
     // ttl :  260
   }),
   key: 'user_sid',
@@ -56,6 +57,9 @@ app.use(function (req, res, next) {
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const projectsRouter = require("./routes/projects");
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
 
 // Подключаем mongoose.
 const mongoose = require("mongoose");
