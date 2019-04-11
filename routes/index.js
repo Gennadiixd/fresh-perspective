@@ -9,17 +9,6 @@ router.get('/', (req, res) => {
   res.render('index');
 });
 
-// route for user's dashboard
-router.get('/dashboard', (req, res) => {
-  if (req.session.user && req.cookies.user_sid) {
-    res.render('dashboard');
-  } else {
-    res.redirect('/users/login');
-  }
-});
-
-
-
 
 
 module.exports = router;

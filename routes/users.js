@@ -34,7 +34,7 @@ router.route('/signup')
       })
       await user.save();
       req.session.user = user;
-      res.redirect('/dashboard');
+      res.redirect('/');
     }
     catch (error) {
       res.redirect('/signup');
@@ -59,7 +59,7 @@ router.route('/login')
       res.redirect('/login');
     } else {
       req.session.user = user;
-      res.redirect('/dashboard');
+      res.redirect('/');
     }
 
   });
