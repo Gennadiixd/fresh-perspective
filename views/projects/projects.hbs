@@ -1,0 +1,24 @@
+<div class="container row">
+    <h1>Projects here</h1>
+    <form id="addPost" method="post" action="/projects">
+    <label for="exampleInputEmail1">Название</label>
+    <input type="text" name="title" class="form-control w-25" placeholder="Введите название">
+    <label for="addDescription">Описание</label>
+    <textarea style="resize:none" name="description" rows="10" class="w-50 form-control" id="addDescription" rows="3"></textarea>
+    <button type="submit" class="btn btn-default">Отправить</button>
+</form>
+</div>
+
+{{#each projects}}
+<div class="row">
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <div class="caption">
+        <h3>{{this.title}}</h3>
+        <p>{{this.description}}</p>
+        <p><a href="projects/{{this._id}}" class="btn btn-primary" role="button">Перейти</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+{{/each}}

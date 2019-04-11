@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const User = require('../models/users')
 const { sessionChecker } = require('../middleware/auth');
 
-// route for user logout
 router.get('/logout', async (req, res, next) => {
   if (req.session.user && req.cookies.user_sid) {
     try {
@@ -20,7 +19,6 @@ router.get('/logout', async (req, res, next) => {
   }
 });
 
-// route for user signup
 router.route('/signup')
   .get(sessionChecker, (req, res) => {
     res.render('signup');
@@ -42,9 +40,8 @@ router.route('/signup')
   });
 
 
-// route for user Login
 router.route('/login')
-  .get(sessionChecker, (req, res) => {
+  .get((req, res) => {
     res.render('login');
   })
   .post(async (req, res) => {

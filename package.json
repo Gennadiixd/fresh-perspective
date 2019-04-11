@@ -15,6 +15,7 @@
     "express-session": "^1.15.6",
     "hbs": "^4.0.2",
     "jasmine": "^3.3.1",
+    "method-override": "^3.0.0",
     "mongoose": "^5.4.13",
     "morgan": "^1.9.1"
   }
