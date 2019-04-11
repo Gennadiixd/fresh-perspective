@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 const projectSchema = new mongoose.Schema({
     modStat : Boolean,
-    title : String,
-    description : String,
-    images : Array,
+    title : {type : String, required : true},
+    description : {type : String, required : true},
+    images : String,
     author : String
 });
 
