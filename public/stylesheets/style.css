@@ -14,3 +14,9 @@
 #addDescription {
     rows : 15,
 }
+
+
+.logo{
+    max-width: 75px;
+    padding-left: 7px;
+}

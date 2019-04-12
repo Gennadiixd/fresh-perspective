@@ -24,6 +24,13 @@ function cookiesCleaner(req, res, next) {
     next();
 }
 
+const moderChecker = (req, res, next) => {
+    if (req.session.user.role === 'moderator' && req.cookies.user_sid) {
+        next();
+    } else {
+        res.render('404');
+    }
+};
 
 const sessionChecker = (req, res, next) => {
     if (req.session.user && req.cookies.user_sid) {
@@ -35,5 +42,6 @@ const sessionChecker = (req, res, next) => {
 
 module.exports = {
     sessionChecker,
-    cookiesCleaner
+    cookiesCleaner,
+    moderChecker
 }

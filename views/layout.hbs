@@ -8,7 +8,9 @@
   <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <div class="page-header">
-  <h1>Lorem ipsum dolor sit amet.</h1>
+  <h1>Свежий взгляд <img src="/stylesheets/logo.png" alt="" srcset="" class="logo"></h1>
+
+  <h5>Платформа агрегатор промышленных дизайн-проектов.</h5>
 </div>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -21,19 +23,19 @@
         {{/unless}}
 
         {{#if_eq session.user.role 'designer'}}
-          <li><a href="/projects">Добавить проект</a></li>          
-          <li><a href="/projects/show/{{session.user.name}}">Мои проекты</a></li>
+        <li><a href="/projects">Добавить проект</a></li>
+        <li><a href="/projects/show/{{session.user.name}}">Мои проекты</a></li>
         {{/if_eq}}
 
         {{#if_eq session.user.role 'customer'}}
-          <li><a href="/projects">Проекты</a></li>
+        <li><a href="/projects">Проекты</a></li>
         {{/if_eq}}
 
         {{#if_eq session.user.role 'moderator'}}
-          <li><a href="/projects">Проекты</a></li>
-          <li><a href="/projects/moderate/pending">Проекты на проверке</a></li>
-          <li><a href="/projects/moderate/accepted">Одобренные проекты</a></li>
-          <li><a href="/projects/moderate/rejected">Отклоненные проекты</a></li>
+        <li><a href="/projects">Проекты</a></li>
+        <li><a href="/projects/moderate/pending">Проекты на проверке</a></li>
+        <li><a href="/projects/moderate/accepted">Одобренные проекты</a></li>
+        <li><a href="/projects/moderate/rejected">Отклоненные проекты</a></li>
         {{/if_eq}}
       </ul>
 
