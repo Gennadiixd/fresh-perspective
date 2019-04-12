@@ -3,8 +3,6 @@
 
 <head>
   <title>Свежий взгляд</title>
-  {{!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> --}}
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -20,37 +18,41 @@
   <script src="/js/show.js"></script>
 </head>
 
-  <nav class="border justify-content-center mb-4 shadow-sm nav nav-tabs trans rounded-bottom flex-column flex-sm-row">
-    <a class="test nav-link border-right" href="/">На Главную</li>
+<nav class="border justify-content-center mb-4 shadow-sm nav nav-tabs trans rounded-bottom flex-column flex-sm-row">
+  <a class="nav-link border-right" href="/">На Главную</a>
     {{#unless session.user}}
-    <a class="test nav-link" href="/users/signup">Регистрация</li>
-    {{/unless}}
+    <a class="nav-link" href="/users/signup">Регистрация</a>
+      {{/unless}}
 
-    {{#if_eq session.user.role 'designer'}}
-    <a class="test nav-link " href="/projects">Добавить проект</li>
-    <a class="test nav-link" href="/projects/show/{{session.user.name}}">Мои проекты</li>
-    {{/if_eq}}
+      {{#if_eq session.user.role 'designer'}}
+      <a class="nav-link " href="/projects">Добавить проект</a>
+        <a class="nav-link" href="/projects/show/{{session.user.name}}">Мои проекты</a>
+          {{/if_eq}}
 
-    {{#if_eq session.user.role 'customer'}}
-    <a class="test nav-link" href="/projects">Проекты</li>
-    {{/if_eq}}
+          {{#if_eq session.user.role 'customer'}}
+          <a class="nav-link" href="/projects">Проекты</a>
+            {{/if_eq}}
 
-    {{#if_eq session.user.role 'moderator'}}
-    <a class="test nav-link" href="/projects">Проекты</a></li>
-    <a class="test nav-link" href="/projects/moderate/pending">Проекты на прове</a>
-    <a class="test nav-link" href="/projects/moderate/accepted">Одобренные проекты</a>
-    <a class="test nav-link" href="/projects/moderate/rejected">Отклоненные проекты</a>
-    {{/if_eq}}
-    {{#unless session.user}}
-    <a class="test nav-link" href="/users/login">Войти</a>
-    {{/unless}}
-    {{#if session.user}}
-    <a class="test nav-link disabled">{{session.user.name}}</li>
-    <a class="test nav-link" href="/users/logout">Выйти</a>
-    {{/if}}
-  </nav>
-  
-</div>
+            {{#if_eq session.user.role 'moderator'}}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                aria-expanded="false">Проекты</a>
+              <div class="dropdown-menu">
+              <a class="dropdown-item" href="/projects">Доска проектов</a>
+              <a class="dropdown-item" href="/projects/moderate/pending">Проекты на проверку</a>
+              <a class="dropdown-item" href="/projects/moderate/accepted">Одобренные проекты</a>
+              <a class="dropdown-item" href="/projects/moderate/rejected">Отклоненные проекты</a>
+              </div>
+            </li>
+            {{/if_eq}}
+            {{#unless session.user}}
+            <a class="nav-link" href="/users/login">Войти</a>
+            {{/unless}}
+            {{#if session.user}}
+            <a class="nav-link disabled">{{session.user.name}}</li>
+              <a class="nav-link" href="/users/logout">Выйти</a>
+              {{/if}}
+</nav>
 <div class="container text-center">
   <h1>Свежий взгляд <img src="/logo.png" alt="" srcset="" class="logo"></h1>
 

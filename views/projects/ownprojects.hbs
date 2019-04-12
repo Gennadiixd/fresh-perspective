@@ -1,24 +1,19 @@
 
-
+{{#if_eq projects.length 0}}
+<h3 class="pt-6 text-center">Пока ничего нет</h3>
+{{/if_eq}}
 <div class="card-columns">
   {{#each projects}}
 
 
       <div class="trans shadow card round">     
-        {{!-- {{#if_eq this.modStat 'rejected'}}
-        <h2 style="color : red">Отклонено</h2>
-        {{/if_eq}}
-         --}}
-        {{!-- {{#if_eq this.modStat 'accepted'}}
-        <h2 style="color : green">Одобрено</h2>
-        {{/if_eq}}
-
-        {{#if_eq this.modStat 'pending'}}
-        <h2 style="color : gray">На проверке</h2>
-        {{/if_eq}}      --}}
         <img class="card-img" src='/images/{{this.images}}'>
         <div class="card-body">
-          <h3 class="card-title">{{this.title}}</h3>
+          <h3 class="card-title">{{this.title}}  
+            {{#if_eq this.modStat 'accepted'}}<span class="badge badge-pill badge-success">Одобрено</span>{{/if_eq}}
+            {{#if_eq this.modStat 'rejected'}}<span class="badge badge-pill badge-danger">Отклонено</span>{{/if_eq}}
+            {{#if_eq this.modStat 'pending'}}<span class="badge badge-pill badge-secondary">Проверяется</span>{{/if_eq}}
+            </h3>
           <p class="card-text">{{this.description}}</p>
           <p class="card-text">Автор: {{this.author}}</p>
           <p class="card-text"><a href="../{{this._id}}" class="btn btn-primary" role="button">Перейти</a></p>
