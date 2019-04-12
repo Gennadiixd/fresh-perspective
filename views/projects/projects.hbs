@@ -22,7 +22,11 @@
 {{/if_eq}}
 
 {{#if_not session.user.role 'designer'}}
-<h1>Актуальные проекты</h1>
+{{#if projects}}
+<h3 class="pt-6 text-center">Актуальные проекты</h3>
+{{else}}
+<h3 class="pt-6 text-center">Пока ничего нет</h3>
+{{/if}}
 <div class="card-columns align-items-center">
 {{#each projects}}
 
