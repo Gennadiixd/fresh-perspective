@@ -1,6 +1,6 @@
 {{#if_eq session.user.role 'designer'}}
-  <h1>Добавить проект</h1>
-   <div class="shadow pt-4 mt-3 container w-50 border">
+   <div class="rounded trans shadow pt-4 mt-3 container w-50 border">
+       <h3 class="text-center">Добавить проект</h3>
   <form class="mx col align-self-center" id="addPost" method="post" action="/projects" enctype="multipart/form-data">
     <div class="form-group row">
     <label for="title">Название</label>
@@ -26,7 +26,7 @@
 <div class="card-columns align-items-center">
 {{#each projects}}
 
-    <div class="shadow card">
+    <div class="trans shadow card">
       <img class="card-img" src='/images/{{this.images}}'>
       <div class="card-body">
         <h3 class="card-title">{{this.title}}</h3>
