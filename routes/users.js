@@ -52,10 +52,10 @@ router.route('/login')
 
     const user = await User.findOne({ name: username });
     if (!user) {
-      res.redirect('/login');
+      res.render('login', {message : "Вы ввели неверное имя пользователя или пароль."});
       // } else if (!user.validPassword(password)) {
     } else if (user.password !== password) {
-      res.redirect('/login');
+      res.render('login', {message : "Вы ввели неверное имя пользователя или пароль."});
     } else {
       req.session.user = user;
       res.redirect('/');
