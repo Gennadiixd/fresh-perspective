@@ -17,47 +17,48 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/stylesheets/style.css">
+  <script src="/js/show.js"></script>
 </head>
-<div class="page-header">
+
+  <nav class="border justify-content-center mb-4 shadow-sm nav nav-tabs trans rounded-bottom flex-column flex-sm-row">
+    <a class="test nav-link border-right" href="/">На Главную</li>
+    {{#unless session.user}}
+    <a class="test nav-link" href="/users/signup">Регистрация</li>
+    {{/unless}}
+
+    {{#if_eq session.user.role 'designer'}}
+    <a class="test nav-link " href="/projects">Добавить проект</li>
+    <a class="test nav-link" href="/projects/show/{{session.user.name}}">Мои проекты</li>
+    {{/if_eq}}
+
+    {{#if_eq session.user.role 'customer'}}
+    <a class="test nav-link" href="/projects">Проекты</li>
+    {{/if_eq}}
+
+    {{#if_eq session.user.role 'moderator'}}
+    <a class="test nav-link" href="/projects">Проекты</a></li>
+    <a class="test nav-link" href="/projects/moderate/pending">Проекты на прове</a>
+    <a class="test nav-link" href="/projects/moderate/accepted">Одобренные проекты</a>
+    <a class="test nav-link" href="/projects/moderate/rejected">Отклоненные проекты</a>
+    {{/if_eq}}
+    {{#unless session.user}}
+    <a class="test nav-link" href="/users/login">Войти</a>
+    {{/unless}}
+    {{#if session.user}}
+    <a class="test nav-link disabled">{{session.user.name}}</li>
+    <a class="test nav-link" href="/users/logout">Выйти</a>
+    {{/if}}
+  </nav>
+  
+</div>
+<div class="container text-center">
   <h1>Свежий взгляд <img src="/logo.png" alt="" srcset="" class="logo"></h1>
 
   <h5>Платформа агрегатор промышленных дизайн-проектов.</h5>
 </div>
 
 
-  <nav class="shadow-sm nav bg-white border-bottom rounded-bottom flex-column flex-sm-row">
-    <a class="nav-link " href="/">На Главную</li>
-    {{#unless session.user}}
-    <a class="nav-link" href="/users/signup">Регистрация</li>
-    {{/unless}}
-
-    {{#if_eq session.user.role 'designer'}}
-    <a class="nav-link" href="/projects">Добавить проект</li>
-    <a class="nav-link" href="/projects/show/{{session.user.name}}">Мои проекты</li>
-    {{/if_eq}}
-
-    {{#if_eq session.user.role 'customer'}}
-    <a class="nav-link" href="/projects">Проекты</li>
-    {{/if_eq}}
-
-    {{#if_eq session.user.role 'moderator'}}
-    <a class="nav-link" href="/projects">Проекты</a></li>
-    <a class="nav-link" href="/projects/moderate/pending">Проекты на прове</a>
-    <a class="nav-link" href="/projects/moderate/accepted">Одобренные проекты</a>
-    <a class="nav-link" href="/projects/moderate/rejected">Отклоненные проекты</a>
-    {{/if_eq}}
-    {{#unless session.user}}
-    <a class="nav-link" href="/users/login">Войти</a>
-    {{/unless}}
-    {{#if session.user}}
-    <a class="nav-link disabled">{{session.user.name}}</li>
-    <a class="nav-link" href="/users/logout">Выйти</a>
-    {{/if}}
-  </nav>
-</div>
-
-
-<body class="container">
+<body id="back" class="container-fluid">
   {{{body}}}
 </body>
 
