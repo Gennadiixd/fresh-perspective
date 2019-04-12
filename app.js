@@ -89,6 +89,10 @@ app.use('/users', usersRouter);
 app.use('/projects', projectsRouter);
 
 // Обработка ошибок.
+app.use(function (req, res) {
+  res.status(404).render('404');
+});
+
 app.use((req, res, next) => {
   const error = new Error("Not found");
   error.status = 404;

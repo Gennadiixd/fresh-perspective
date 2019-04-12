@@ -60,8 +60,8 @@ router.route('/login')
       req.session.user = user;
       res.redirect('/');
     }
-
   });
+
 
 
 module.exports = router;

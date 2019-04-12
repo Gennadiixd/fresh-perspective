@@ -3,8 +3,9 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../models/users')
 const Project = require('../models/projects')
-const { sessionChecker } = require('../middleware/auth');
+const { sessionChecker, moderChecker } = require('../middleware/auth');
 const multer = require('multer');
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/images')
@@ -20,7 +21,7 @@ router.route('/')
     const projects = await Project.find({ modStat: 'accepted' });
     res.render('projects/projects', { projects });
   })
-  .post(upload.single('file-to-upload'), async (req, res) => {
+  .post(sessionChecker, upload.single('file-to-upload'), async (req, res) => {
     console.log(req.file)
     const project = new Project({
       modStat: 'pending',
@@ -34,7 +35,7 @@ router.route('/')
   })
 
 router.route('/accept/:id')
-  .put(async (req, res) => {
+  .put(sessionChecker, async (req, res) => {
     const project = await Project.findById(req.params.id);
     project.modStat = 'accepted';
     await project.save();
@@ -43,7 +44,7 @@ router.route('/accept/:id')
   .post()
 
 router.route('/reject/:id')
-  .put(async (req, res) => {
+  .put(sessionChecker, async (req, res) => {
     const project = await Project.findById(req.params.id);
     project.modStat = 'rejected';
     await project.save();
@@ -51,41 +52,46 @@ router.route('/reject/:id')
   })
 
 router.route('/moderate/pending')
-  .get(async (req, res) => {
+  .get(moderChecker, async (req, res) => {
     const projects = await Project.find({ modStat: 'pending' });
     res.render('projects/ownprojects', { projects: projects, modStat: 'pending' });
   })
 
 router.route('/moderate/accepted')
-  .get(async (req, res) => {
+  .get(sessionChecker, async (req, res) => {
     const projects = await Project.find({ modStat: 'accepted' });
     res.render('projects/ownprojects', { projects: projects, modStat: 'accepted' });
   })
 
 router.route('/moderate/rejected')
-  .get(async (req, res) => {
+  .get(sessionChecker, async (req, res) => {
     const projects = await Project.find({ modStat: 'rejected' });
     res.render('projects/ownprojects', { projects: projects, modStat: 'rejected' });
   })
 
 router.route('/:id')
-  .get(async (req, res) => {
-    const project = await Project.findById(req.params.id);
-    res.render('projects/show', { project })
+  .get(sessionChecker, async (req, res) => {
+    try {
+      const project = await Project.findById(req.params.id);
+      if (project === null) {
+        res.status(404).render('404');
+      }
+      res.render('projects/show', { project })
+    } catch (error) {
+      res.status(404).render('404');
+    }
   })
-  .delete(async (req, res) => {
+  .delete(sessionChecker, async (req, res) => {
     await Project.deleteOne({ '_id': req.params.id })
     res.redirect('/projects')
   })
 
 router.route('/show/:name')
-  .get(async (req, res) => {
+  .get(sessionChecker, async (req, res) => {
     const projects = await Project.find({ author: req.params.name });
     res.render('projects/ownprojects', { projects });
   })
-  .post()
-
-
+  
 
 
 module.exports = router;
