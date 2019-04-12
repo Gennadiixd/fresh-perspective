@@ -31,6 +31,7 @@ router.route('/signup')
         password: req.body.password,
         role: req.body.role,
       })
+      console.log(user);
       await user.save();
       req.session.user = user;
       res.redirect('/');

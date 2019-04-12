@@ -8,6 +8,14 @@ hbs.registerHelper('if_eq', function (a, b, opts) {
     }
 });
 
+hbs.registerHelper('if_not', function (a, b, opts) {
+    if (a !== b) {
+        return opts.fn(this);
+    } else {
+        return opts.inverse(this);
+    }
+});
+
 function cookiesCleaner(req, res, next) {
     console.log('middleware func');
     if (req.cookies.user_sid && !req.session.user) {

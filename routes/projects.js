@@ -58,13 +58,13 @@ router.route('/moderate/pending')
 
 router.route('/moderate/accepted')
   .get(async (req, res) => {
-    const projects = await Project.find({ modStat: 'true' });
+    const projects = await Project.find({ modStat: 'accepted' });
     res.render('projects/ownprojects', { projects: projects, modStat: 'accepted' });
   })
 
 router.route('/moderate/rejected')
   .get(async (req, res) => {
-    const projects = await Project.find({ modStat: 'false' });
+    const projects = await Project.find({ modStat: 'rejected' });
     res.render('projects/ownprojects', { projects: projects, modStat: 'rejected' });
   })
 
